@@ -4,6 +4,21 @@ from django.core.validators import MinValueValidator
 
 class UserProfile(AbstractUser):
     """Extended user profile with fitness tracking information"""
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='userprofile_set',
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='userprofile_set',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.URLField(blank=True, null=True)
     total_workouts = models.IntegerField(default=0)

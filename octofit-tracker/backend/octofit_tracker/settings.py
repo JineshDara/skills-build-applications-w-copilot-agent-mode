@@ -1,3 +1,5 @@
+# Use custom user model
+AUTH_USER_MODEL = 'users.UserProfile'
 """
 Django settings for octofit_tracker project.
 
@@ -25,7 +27,9 @@ SECRET_KEY = 'django-insecure-q2lnjtrjy5ry$)%z*ji67mnqqv!*sgc3kcag@-7v6d8dyw72)z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+# Allow all hosts
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'dj_rest_auth',
     'allauth',
@@ -46,6 +51,7 @@ INSTALLED_APPS = [
     'activities',
     'teams',
     'leaderboard',
+    'octofit_tracker',
 ]
 
 MIDDLEWARE = [
@@ -83,10 +89,16 @@ WSGI_APPLICATION = 'octofit_tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+# Use Djongo to connect to MongoDB octofit_db
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'octofit_db',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb://localhost:27017/',
+        }
     }
 }
 
@@ -122,10 +134,16 @@ USE_I18N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'static/'
+
+# CORS settings
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
+CORS_ALLOW_METHODS = ['*']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
