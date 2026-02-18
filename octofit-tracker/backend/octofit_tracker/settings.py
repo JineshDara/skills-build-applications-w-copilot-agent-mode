@@ -27,7 +27,6 @@ SECRET_KEY = 'django-insecure-q2lnjtrjy5ry$)%z*ji67mnqqv!*sgc3kcag@-7v6d8dyw72)z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 # Allow all hosts
 ALLOWED_HOSTS = ['*']
 
@@ -52,6 +51,8 @@ INSTALLED_APPS = [
     'teams',
     'leaderboard',
     'octofit_tracker',
+    # helper app from local work
+    'api',
 ]
 
 MIDDLEWARE = [
